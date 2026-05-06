@@ -128,7 +128,7 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-6 flex flex-col items-center gap-6">
           <div className="flex items-center gap-2 opacity-50">
             <div className="w-6 h-6 bg-[#0a0a0a] rounded-md" />
-            <span className="font-medium tracking-tight">AILab</span>
+            <span className="font-medium tracking-tight">AILab
         </div>
       </footer>
     </div>
