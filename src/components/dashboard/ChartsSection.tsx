@@ -6,20 +6,21 @@ interface ChartsSectionProps {
   barData: any[];
 }
 
-const COLORS = ['#635bff', '#ff5c93']; // Stripe Purple and Pink
+// Clay Palette
+const COLORS = ['#b8a4ed', '#ffb084']; // Lavender and Peach
 const SEVERITY_COLORS: Record<string, string> = {
-  'Pagas': '#635bff',
-  'Até 5 dias': '#facc15',
-  '6 a 10 dias': '#f97316',
-  'Acima de 10 dias': '#ff5c93'
+  'Pagas': '#1a3a3a', // Teal
+  'Até 5 dias': '#e8b94a', // Ochre
+  '6 a 10 dias': '#ffb084', // Peach
+  'Acima de 10 dias': '#ff4d8b' // Pink
 };
 
 export const ChartsSection = ({ pieData, barData }: ChartsSectionProps) => {
   return (
-    <div className="grid gap-6 md:grid-cols-2">
-      <Card className="border-none shadow-[0_2px_5px_rgba(0,0,0,0.05),0_1px_1px_rgba(0,0,0,0.05)] bg-white">
+    <div className="grid gap-8 md:grid-cols-2">
+      <Card className="bg-[#f5f0e0] border-none rounded-[24px] p-4">
         <CardHeader className="pb-2">
-          <CardTitle className="text-base font-bold text-[#0a2540]">Status de Pagamento</CardTitle>
+          <CardTitle className="text-xl font-medium tracking-tight text-[#0a0a0a]">Status de Pagamento</CardTitle>
         </CardHeader>
         <CardContent className="h-[320px]">
           <ResponsiveContainer width="100%" height="100%">
@@ -39,7 +40,7 @@ export const ChartsSection = ({ pieData, barData }: ChartsSectionProps) => {
                 ))}
               </Pie>
               <Tooltip 
-                contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }}
+                contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 10px 30px rgba(0,0,0,0.05)', backgroundColor: '#fff' }}
               />
               <Legend verticalAlign="bottom" height={36} iconType="circle" />
             </PieChart>
@@ -47,9 +48,9 @@ export const ChartsSection = ({ pieData, barData }: ChartsSectionProps) => {
         </CardContent>
       </Card>
 
-      <Card className="border-none shadow-[0_2px_5px_rgba(0,0,0,0.05),0_1px_1px_rgba(0,0,0,0.05)] bg-white">
+      <Card className="bg-[#f5f0e0] border-none rounded-[24px] p-4">
         <CardHeader className="pb-2">
-          <CardTitle className="text-base font-bold text-[#0a2540]">Severidade de Atraso</CardTitle>
+          <CardTitle className="text-xl font-medium tracking-tight text-[#0a0a0a]">Severidade de Atraso</CardTitle>
         </CardHeader>
         <CardContent className="h-[320px]">
           <ResponsiveContainer width="100%" height="100%">
@@ -58,20 +59,20 @@ export const ChartsSection = ({ pieData, barData }: ChartsSectionProps) => {
                 dataKey="name" 
                 axisLine={false} 
                 tickLine={false} 
-                tick={{ fill: '#697386', fontSize: 12, fontWeight: 500 }}
+                tick={{ fill: '#6a6a6a', fontSize: 12, fontWeight: 500 }}
               />
               <YAxis 
                 axisLine={false} 
                 tickLine={false} 
-                tick={{ fill: '#697386', fontSize: 12 }}
+                tick={{ fill: '#6a6a6a', fontSize: 12 }}
               />
               <Tooltip 
-                cursor={{ fill: '#f6f9fc' }}
-                contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }}
+                cursor={{ fill: '#ebe6d6' }}
+                contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 10px 30px rgba(0,0,0,0.05)', backgroundColor: '#fff' }}
               />
-              <Bar dataKey="quantidade" radius={[6, 6, 0, 0]} barSize={40}>
+              <Bar dataKey="quantidade" radius={[8, 8, 0, 0]} barSize={48}>
                 {barData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={SEVERITY_COLORS[entry.name] || '#635bff'} />
+                  <Cell key={`cell-${index}`} fill={SEVERITY_COLORS[entry.name] || '#b8a4ed'} />
                 ))}
               </Bar>
             </BarChart>

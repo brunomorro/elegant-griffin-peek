@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { RefreshCw, LayoutDashboard, Loader2, ArrowUpRight } from "lucide-react";
+import { RefreshCw, LayoutDashboard, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SummaryCards } from "@/components/dashboard/SummaryCards";
 import { ChartsSection } from "@/components/dashboard/ChartsSection";
@@ -28,9 +28,9 @@ const Index = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-[#f6f9fc] gap-4">
-        <Loader2 className="h-10 w-10 animate-spin text-[#635bff]" />
-        <p className="text-[#424770] font-medium animate-pulse">Sincronizando dados...</p>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-[#fffaf0] gap-4">
+        <Loader2 className="h-10 w-10 animate-spin text-[#0a0a0a]" />
+        <p className="text-[#3a3a3a] font-medium">Moldando seus dados...</p>
       </div>
     );
   }
@@ -67,39 +67,37 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#f6f9fc] text-[#424770] font-sans selection:bg-[#635bff]/20">
-      {/* Header */}
-      <header className="bg-white border-b border-[#e6ebf1] sticky top-0 z-20">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="bg-[#635bff] p-2 rounded-xl shadow-lg shadow-[#635bff]/20">
-              <LayoutDashboard className="h-6 w-6 text-white" />
+    <div className="min-h-screen bg-[#fffaf0] text-[#0a0a0a] font-sans selection:bg-[#ffb084]/30">
+      {/* Top Nav - Clay Style */}
+      <nav className="h-16 border-b border-[#e5e5e5] bg-[#fffaf0] sticky top-0 z-30">
+        <div className="max-w-7xl mx-auto px-6 h-full flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-[#0a0a0a] rounded-lg flex items-center justify-center">
+              <LayoutDashboard className="h-5 w-5 text-white" />
             </div>
-            <div>
-              <h1 className="text-xl font-bold text-[#0a2540] tracking-tight">AILab Dashboard</h1>
-              <p className="text-xs text-[#697386] font-medium uppercase tracking-wider">Financial Analytics</p>
-            </div>
+            <span className="text-xl font-medium tracking-[-1px]">AILab Dashboard</span>
           </div>
-          <div className="flex items-center gap-4">
-            <Button 
-              onClick={handleRefresh} 
-              disabled={isFetching}
-              variant="ghost"
-              className="gap-2 text-[#635bff] hover:bg-[#635bff]/5 font-semibold"
-            >
-              <RefreshCw className={`h-4 w-4 ${isFetching ? 'animate-spin' : ''}`} />
-              Atualizar Dados
-            </Button>
-          </div>
+          <Button 
+            onClick={handleRefresh} 
+            disabled={isFetching}
+            className="bg-[#0a0a0a] hover:bg-[#1a1a1a] text-white rounded-[12px] px-6 h-11 font-semibold text-sm transition-all active:scale-95"
+          >
+            {isFetching ? <RefreshCw className="h-4 w-4 animate-spin mr-2" /> : null}
+            Atualizar
+          </Button>
         </div>
-      </header>
+      </nav>
 
-      <main className="max-w-7xl mx-auto px-6 py-10 space-y-12">
-        {/* Summary Section */}
+      <main className="max-w-7xl mx-auto px-6 py-[96px] space-y-[96px]">
+        {/* Hero Section */}
         <section>
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-lg font-bold text-[#0a2540]">Visão Geral</h2>
-            <span className="text-sm text-[#697386] bg-[#e6ebf1] px-3 py-1 rounded-full font-medium">Tempo Real</span>
+          <div className="max-w-2xl mb-12">
+            <h1 className="text-[56px] leading-[1.05] font-medium tracking-[-2px] mb-6">
+              Controle suas cobranças com clareza.
+            </h1>
+            <p className="text-lg text-[#3a3a3a] leading-relaxed">
+              Visualize o fluxo financeiro da AILab em tempo real com dados sincronizados diretamente da sua planilha.
+            </p>
           </div>
           <SummaryCards 
             totalPaid={stats?.totalPaid || 0} 
@@ -109,22 +107,31 @@ const Index = () => {
 
         {/* Charts Section */}
         <section>
-          <h2 className="text-lg font-bold text-[#0a2540] mb-6">Distribuição de Cobranças</h2>
+          <div className="mb-12">
+            <h2 className="text-[32px] font-medium tracking-[-1px] mb-2">Distribuição de Dados</h2>
+            <p className="text-[#6a6a6a]">Análise visual do status e severidade dos atrasos.</p>
+          </div>
           <ChartsSection pieData={pieData} barData={barData} />
         </section>
 
         {/* Table Section */}
         <section>
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-lg font-bold text-[#0a2540]">Histórico de Faturas</h2>
-            <p className="text-sm text-[#697386]">Mostrando {invoices?.length || 0} registros</p>
+          <div className="mb-12">
+            <h2 className="text-[32px] font-medium tracking-[-1px] mb-2">Histórico Detalhado</h2>
+            <p className="text-[#6a6a6a]">Lista completa de faturas e informações de clientes.</p>
           </div>
           <InvoicesTable invoices={invoices || []} />
         </section>
       </main>
       
-      <footer className="border-t border-[#e6ebf1] mt-12 bg-white">
-        <MadeWithDyad />
+      <footer className="bg-[#faf5e8] py-[80px] border-t border-[#e5e5e5]">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col items-center gap-6">
+          <div className="flex items-center gap-2 opacity-50">
+            <div className="w-6 h-6 bg-[#0a0a0a] rounded-md" />
+            <span className="font-medium tracking-tight">AILab</span>
+          </div>
+          <MadeWithDyad />
+        </div>
       </footer>
     </div>
   );
