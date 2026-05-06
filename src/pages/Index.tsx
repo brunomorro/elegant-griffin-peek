@@ -130,7 +130,7 @@ const Index = () => {
             <div className="w-6 h-6 bg-[#0a0a0a] rounded-md" />
             <span className="font-medium tracking-tight">AILab</span>
           </div>
-          < />
+          <MadeWithDyad />
         </div>
       </footer>
     </div>
