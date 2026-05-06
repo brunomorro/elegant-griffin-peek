@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { format } from "date-fns";
+import { format, isValid } from "date-fns";
 import {
   Table,
   TableBody,
@@ -44,6 +44,11 @@ export const InvoicesTable = ({ invoices }: InvoicesTableProps) => {
     }).format(value);
   };
 
+  const formatDate = (date: Date) => {
+    if (!isValid(date)) return "Data inválida";
+    return format(date, 'dd/MM/yyyy');
+  };
+
   return (
     <div className="rounded-md border bg-white shadow-sm overflow-hidden">
       <Table>
@@ -63,7 +68,7 @@ export const InvoicesTable = ({ invoices }: InvoicesTableProps) => {
               onClick={() => setSelectedInvoice(invoice)}
             >
               <TableCell className="font-medium">{invoice.nome_cliente}</TableCell>
-              <TableCell>{format(invoice.data_vencimento, 'dd/MM/yyyy')}</TableCell>
+              <TableCell>{formatDate(invoice.data_vencimento)}</TableCell>
               <TableCell>{formatCurrency(invoice.valor_fatura)}</TableCell>
               <TableCell>{getSeverityBadge(invoice.severity)}</TableCell>
             </TableRow>

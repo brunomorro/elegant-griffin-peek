@@ -1,5 +1,5 @@
 import Papa from 'papaparse';
-import { parse, differenceInDays, isBefore, startOfDay } from 'date-fns';
+import { parse, differenceInDays, isBefore, startOfDay, isValid } from 'date-fns';
 import { Invoice } from '@/types/dashboard';
 
 const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1bHcA2HxFRaxVZ8mus5oFVevS7GDnGAaQvEHYX7S4u-M/export?format=csv';
@@ -17,22 +17,27 @@ export const fetchDashboardData = async (): Promise<Invoice[]> => {
         
         const data = results.data.map((row: any) => {
           const valor = parseFloat(row.valor_fatura?.replace(/[^\d,.-]/g, '').replace(',', '.') || '0');
-          // Assuming date format in sheet is dd/mm/yyyy or similar
-          const dueDate = parse(row.data_vencimento, 'dd/MM/yyyy', new Date());
+          
+          // Tenta parsear a data em múltiplos formatos
+          let dueDate = parse(row.data_vencimento, 'dd/MM/yyyy', new Date());
+          
+          if (!isValid(dueDate)) {
+            dueDate = new Date(row.data_vencimento);
+          }
+
           const isPaid = row.pago?.toLowerCase() === 'sim';
           
           let severity: Invoice['severity'] = 'paid';
           let delayDays = 0;
 
           if (!isPaid) {
-            if (isBefore(dueDate, today)) {
+            if (isValid(dueDate) && isBefore(dueDate, today)) {
               delayDays = differenceInDays(today, dueDate);
               if (delayDays <= 5) severity = 'low';
               else if (delayDays <= 10) severity = 'medium';
               else severity = 'high';
             } else {
-              // Not paid but not yet due
-              severity = 'low'; // Or a neutral state, but following prompt's logic for "atraso"
+              severity = 'low';
             }
           }
 
@@ -48,7 +53,8 @@ export const fetchDashboardData = async (): Promise<Invoice[]> => {
             severity,
             delayDays
           };
-        });
+        }).filter((inv: any) => isValid(inv.data_vencimento)); // Remove registros com datas inválidas
+        
         resolve(data);
       },
       error: (error) => reject(error)
