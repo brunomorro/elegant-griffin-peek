@@ -1,88 +1,118 @@
-import { useEffect, useState } from "react";
-import { SummaryCards } from "@/components/SummaryCards";
-import { ChartsSection } from "@/components/ChartsSection";
-import { InvoicesTable } from "@/components/InvoicesTable";
+import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { RefreshCw, LayoutDashboard, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { RefreshCw, LayoutDashboard } from "lucide-react";
-import { fetchInvoices } from "@/utils/googleSheets";
-import { Invoice } from "@/types/invoice";
+import { SummaryCards } from "@/components/dashboard/SummaryCards";
+import { ChartsSection } from "@/components/dashboard/ChartsSection";
+import { InvoicesTable } from "@/components/dashboard/InvoicesTable";
+import { fetchDashboardData } from "@/utils/data-fetcher";
 import { showSuccess, showError } from "@/utils/toast";
 import { MadeWithDyad } from "@/components/made-with-dyad";
 
 const Index = () => {
-  const [invoices, setInvoices] = useState<Invoice[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  const loadData = async () => {
-    setLoading(true);
-    try {
-      const data = await fetchInvoices();
-      setInvoices(data);
-      showSuccess("Dados atualizados com sucesso!");
-    } catch (error) {
-      console.error("Erro ao carregar dados:", error);
-      showError("Falha ao carregar dados da planilha.");
-    } finally {
-      setLoading(false);
-    }
-  };
+  const { data: invoices, isLoading, isError, refetch, isFetching } = useQuery({
+    queryKey: ['invoices'],
+    queryFn: fetchDashboardData,
+  });
 
   useEffect(() => {
-    loadData();
-  }, []);
+    if (isError) {
+      showError("Erro ao carregar dados da planilha.");
+    }
+  }, [isError]);
+
+  const handleRefresh = async () => {
+    await refetch();
+    showSuccess("Dashboard atualizado com sucesso!");
+  };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-slate-50 gap-4">
+        <Loader2 className="h-12 w-12 animate-spin text-primary" />
+        <p className="text-slate-600 font-medium">Carregando dados do AILab Dashboard...</p>
+      </div>
+    );
+  }
+
+  const stats = invoices?.reduce((acc, inv) => {
+    if (inv.pago) {
+      acc.totalPaid += inv.valor_fatura;
+      acc.paidCount += 1;
+      acc.severityCounts.paid += 1;
+    } else {
+      acc.totalUnpaid += inv.valor_fatura;
+      acc.unpaidCount += 1;
+      acc.severityCounts[inv.severity] += 1;
+    }
+    return acc;
+  }, {
+    totalPaid: 0,
+    totalUnpaid: 0,
+    paidCount: 0,
+    unpaidCount: 0,
+    severityCounts: { paid: 0, low: 0, medium: 0, high: 0 }
+  });
+
+  const pieData = [
+    { name: 'Pagas', value: stats?.paidCount || 0 },
+    { name: 'A Pagar', value: stats?.unpaidCount || 0 },
+  ];
+
+  const barData = [
+    { name: 'Pagas', quantidade: stats?.severityCounts.paid || 0 },
+    { name: 'Até 5 dias', quantidade: stats?.severityCounts.low || 0 },
+    { name: '6 a 10 dias', quantidade: stats?.severityCounts.medium || 0 },
+    { name: 'Acima de 10 dias', quantidade: stats?.severityCounts.high || 0 },
+  ];
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 p-4 md:p-8">
-      <div className="max-w-7xl mx-auto space-y-8">
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-indigo-600 rounded-lg">
-              <LayoutDashboard className="w-6 h-6 text-white" />
+    <div className="min-h-screen bg-slate-50 pb-12">
+      {/* Header */}
+      <header className="bg-white border-b sticky top-0 z-10 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="bg-primary p-2 rounded-lg">
+              <LayoutDashboard className="h-6 w-6 text-white" />
             </div>
-            <div>
-              <h1 className="text-2xl font-bold text-slate-900 dark:text-white">AILab Dashboard</h1>
-              <p className="text-slate-500 dark:text-slate-400">Controle de Cobranças e Inadimplência</p>
-            </div>
+            <h1 className="text-xl font-bold text-slate-900 tracking-tight">AILab Dashboard</h1>
           </div>
-          
           <Button 
-            onClick={loadData} 
-            disabled={loading}
-            className="bg-indigo-600 hover:bg-indigo-700 text-white transition-all"
+            onClick={handleRefresh} 
+            disabled={isFetching}
+            variant="outline"
+            className="gap-2 border-slate-200 hover:bg-slate-50"
           >
-            <RefreshCw className={`mr-2 h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
-            Atualizar Dashboard
+            <RefreshCw className={`h-4 w-4 ${isFetching ? 'animate-spin' : ''}`} />
+            Atualizar
           </Button>
         </div>
+      </header>
 
-        {loading && invoices.length === 0 ? (
-          <div className="flex items-center justify-center h-[60vh]">
-            <div className="flex flex-col items-center gap-4">
-              <RefreshCw className="w-12 h-12 text-indigo-600 animate-spin" />
-              <p className="text-slate-500 font-medium">Carregando dados da planilha...</p>
-            </div>
-          </div>
-        ) : (
-          <>
-            {/* Top Section: Summary Cards */}
-            <SummaryCards invoices={invoices} />
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+        {/* Summary Section */}
+        <section>
+          <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4">Visão Geral Financeira</h2>
+          <SummaryCards 
+            totalPaid={stats?.totalPaid || 0} 
+            totalUnpaid={stats?.totalUnpaid || 0} 
+          />
+        </section>
 
-            {/* Middle Section: Charts */}
-            <ChartsSection invoices={invoices} />
+        {/* Charts Section */}
+        <section>
+          <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4">Análise de Cobranças</h2>
+          <ChartsSection pieData={pieData} barData={barData} />
+        </section>
 
-            {/* Bottom Section: Table */}
-            <div className="space-y-4">
-              <h2 className="text-xl font-semibold text-slate-800 dark:text-slate-200">Listagem de Faturas</h2>
-              <InvoicesTable invoices={invoices} />
-            </div>
-          </>
-        )}
-
-        <footer className="pt-8 border-t border-slate-200 dark:border-slate-800">
-          <MadeWithDyad />
-        </footer>
-      </div>
+        {/* Table Section */}
+        <section>
+          <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4">Detalhamento de Faturas</h2>
+          <InvoicesTable invoices={invoices || []} />
+        </section>
+      </main>
+      
+      <MadeWithDyad />
     </div>
   );
 };
