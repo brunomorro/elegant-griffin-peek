@@ -1,0 +1,57 @@
+import { motion } from "framer-motion";
+import { AlertCircle, ArrowRight } from "lucide-react";
+
+const pains = [
+  "Baixo engajamento dos professores",
+  "Dificuldade em padronizar cultura",
+  "Alta rotatividade de colaboradores",
+  "Professores sem incentivo para divulgar a academia",
+  "Falta de desenvolvimento contínuo"
+];
+
+export const PainPoints = () => {
+  return (
+    <section id="para-quem" className="py-32 bg-brand-white">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="text-center max-w-3xl mx-auto mb-20">
+          <h2 className="text-4xl md:text-5xl font-bold text-brand-black mb-6 tracking-tight">
+            Para academias que cresceram… mas perderam a conexão com o time.
+          </h2>
+          <p className="text-lg text-black/60">
+            A GymOnHands foi criada para academias que querem crescer sem virar uma operação impessoal.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {pains.map((pain, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              className="p-8 bg-white rounded-3xl border border-black/5 shadow-sm hover:shadow-xl hover:border-brand-orange/20 transition-all group"
+            >
+              <div className="w-12 h-12 rounded-xl bg-brand-orange/10 flex items-center justify-center mb-6 group-hover:bg-brand-orange transition-colors">
+                <AlertCircle className="h-6 w-6 text-brand-orange group-hover:text-white" />
+              </div>
+              <p className="text-xl font-bold text-brand-black leading-tight">{pain}</p>
+            </motion.div>
+          ))}
+          
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="p-8 bg-brand-black rounded-3xl flex flex-col justify-between group cursor-pointer"
+          >
+            <h3 className="text-2xl font-bold text-white">Sua academia sofre com algum desses pontos?</h3>
+            <div className="flex items-center gap-2 text-brand-orange font-bold mt-8 group-hover:gap-4 transition-all">
+              Falar com um especialista <ArrowRight className="h-5 w-5" />
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+};
