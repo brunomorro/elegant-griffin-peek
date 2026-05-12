@@ -1,24 +1,20 @@
-import { Navbar } from "@/components/landing/Navbar";
+"use client";
+
+import { Navbar } from "@/components/layout/Navbar";
 import { Hero } from "@/components/landing/Hero";
+import { Comparison } from "@/components/landing/Comparison";
 import { PainPoints } from "@/components/landing/PainPoints";
-import { Features } from "@/components/landing/Features";
-import { Benefits } from "@/components/landing/Benefits";
-import { FinalCTA } from "@/components/landing/FinalCTA";
-import { Footer } from "@/components/landing/Footer";
+import { Footer } from "@/components/layout/Footer";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-[#F9F9F9] font-sans selection:bg-[#F46A35]/20">
+    <main className="min-h-screen bg-[#fffaf0]">
       <Navbar />
-      <main>
-        <Hero />
-        <PainPoints />
-        <Features />
-        <Benefits />
-        <FinalCTA />
-      </main>
+      <Hero />
+      <Comparison />
+      <PainPoints />
       <Footer />
-    </div>
+    </main>
   );
 };
 
