@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { LeadForm } from "./LeadForm";
+import { Button } from "@/components/ui/button";
 import { Trophy, Users, Zap } from "lucide-react";
 
 export const Hero = () => {
