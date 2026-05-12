@@ -1,4 +1,8 @@
-import { LayoutDashboard, Instagram, Mail, Phone } from "lucide-react";
+"use client";
+
+import React from 'react';
+import { Instagram, Mail, Phone } from "lucide-react";
+import logo from "@/assets/logo.png";
 
 export const Footer = () => {
   return (
@@ -6,10 +10,8 @@ export const Footer = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid md:grid-cols-4 gap-12 mb-20">
           <div className="col-span-2">
-            <div className="flex items-center gap-2 mb-6">
-              <div className="w-8 h-8 bg-brand-orange rounded-lg flex items-center justify-center">
-                <LayoutDashboard className="h-5 w-5 text-white" />
-              </div>
+            <div className="flex items-center gap-3 mb-6">
+              <img src={logo} alt="GymOnHands Logo" className="h-8 w-auto" />
               <span className="text-xl font-bold text-white">GymOnHands</span>
             </div>
             <p className="text-white/40 max-w-sm leading-relaxed">
