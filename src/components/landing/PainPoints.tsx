@@ -1,12 +1,14 @@
+"use client";
+
 import { motion } from "framer-motion";
 import { AlertCircle, ArrowRight } from "lucide-react";
 
 const pains = [
-  "Baixo engajamento dos professores",
-  "Dificuldade em padronizar cultura",
-  "Alta rotatividade de colaboradores",
-  "Professores sem incentivo para divulgar a academia",
-  "Falta de desenvolvimento contínuo"
+  "Baixo engajamento dos seus professores",
+  "Dificuldade em padronizar a cultura da sua unidade",
+  "Alta rotatividade de colaboradores no seu time",
+  "Professores sem incentivo para divulgar a sua academia",
+  "Falta de desenvolvimento contínuo na sua operação"
 ];
 
 export const PainPoints = () => {
@@ -15,10 +17,10 @@ export const PainPoints = () => {
       <div className="container mx-auto px-6">
         <div className="text-center max-w-3xl mx-auto mb-20">
           <h2 className="text-4xl md:text-5xl font-bold text-[#171717] mb-6 tracking-tight">
-            Para academias que cresceram… mas perderam a conexão com o time.
+            Para a sua academia que não cresce… porque falta conexão com o time.
           </h2>
           <p className="text-lg text-[#171717]/60">
-            A GymOnHands foi criada para academias que querem crescer sem virar uma operação impessoal.
+            A GymOnHands foi criada para você, dono de academia, que quer crescer sem perder a essência e a qualidade do atendimento.
           </p>
         </div>
 
@@ -45,8 +47,8 @@ export const PainPoints = () => {
             viewport={{ once: true }}
             className="p-8 bg-[#F46A35] rounded-3xl flex flex-col justify-between group cursor-pointer min-h-[200px]"
           >
-            <h3 className="text-2xl font-bold text-[#171717]">Sua academia sofre com algum desses pontos?</h3>
-            <div className="flex items-center gap-2 text-[#171717] font-bold mt-8 group-hover:gap-4 transition-all">
+            <h3 className="text-2xl font-bold text-white">Sua academia sofre com algum desses pontos?</h3>
+            <div className="flex items-center gap-2 text-white font-bold mt-8 group-hover:gap-4 transition-all">
               Falar com um especialista <ArrowRight className="h-5 w-5" />
             </div>
           </motion.div>

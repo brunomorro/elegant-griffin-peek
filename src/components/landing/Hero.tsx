@@ -15,7 +15,7 @@ export const Hero = () => {
             className="lg:col-span-7"
           >
             <h1 className="text-[56px] md:text-[72px] font-medium text-[#0a0a0a] leading-[1.0] tracking-[-2.5px] mb-8">
-              Transforme seu time em uma máquina de <span className="text-[#F46A35]">crescimento</span>.
+              Transforme o time da sua academia em uma máquina de <span className="text-[#F46A35]">crescimento</span> para o seu negócio.
             </h1>
             <p className="text-xl text-[#3a3a3a] leading-[1.55] mb-10 max-w-xl">
               A GymOnHands é uma plataforma que gera crescimento real para a sua academia, através do desenvolvimento e transformação de educadores físicos em embaixadores da sua marca.
