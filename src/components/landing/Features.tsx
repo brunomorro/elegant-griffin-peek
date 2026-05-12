@@ -1,71 +1,106 @@
 import { motion } from "framer-motion";
-import { Share2, GraduationCap, Gamepad2 } from "lucide-react";
+import { Share2, GraduationCap, Gamepad2, ArrowRight } from "lucide-react";
 
 const features = [
   {
     title: "Gamificação Social",
-    description: "Sistemas de desafios, rankings e reconhecimento para aumentar participação e engajamento dos educadores físicos.",
+    description: "Sistemas de desafios e rankings para aumentar a participação dos educadores.",
     icon: Gamepad2,
-    color: "bg-purple-500"
+    color: "bg-[#ff4d8b]", // Brand Pink
+    textColor: "text-white"
   },
   {
-    title: "Marketing & Embaixadores",
-    description: "Frameworks e ferramentas para transformar professores em promotores naturais da marca da academia.",
+    title: "Marketing Interno",
+    description: "Transforme seus professores em promotores naturais da marca.",
     icon: Share2,
-    color: "bg-brand-orange"
+    color: "#1a3a3a", // Brand Teal
+    textColor: "text-white"
   },
   {
-    title: "Aprendizado Contínuo",
-    description: "Treinamentos e conteúdos que desenvolvem habilidades técnicas, comunicação e posicionamento profissional.",
+    title: "Desenvolvimento",
+    description: "Treinamentos que desenvolvem habilidades técnicas e comunicação.",
     icon: GraduationCap,
-    color: "bg-blue-500"
+    color: "bg-[#b8a4ed]", // Brand Lavender
+    textColor: "text-[#0a0a0a]"
   }
 ];
 
 export const Features = () => {
   return (
-    <section id="como-fazemos" className="py-32 bg-brand-black relative overflow-hidden">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(244,106,53,0.05)_0%,transparent_70%)]" />
-      
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-24">
-          <h2 className="text-4xl md:text-5xl font-bold text-brand-white mb-6 tracking-tight">
-            Uma plataforma que conecta performance, comunidade e desenvolvimento.
+    <section id="como-fazemos" className="py-32 bg-[#fffaf0]">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-3xl mb-20">
+          <h2 className="text-[40px] md:text-[56px] font-medium text-[#0a0a0a] leading-[1.05] tracking-[-2px] mb-6">
+            Uma plataforma feita para <br />conectar seu time.
           </h2>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-12">
-          {features.map((feature, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.2 }}
-              className="relative p-10 rounded-[40px] bg-white/5 border border-white/10 hover:border-brand-orange/30 transition-all group"
-            >
-              <div className={`w-16 h-16 rounded-2xl ${feature.color} flex items-center justify-center mb-8 shadow-lg shadow-black/20`}>
-                <feature.icon className="h-8 w-8 text-white" />
+        <div className="grid lg:grid-cols-3 gap-6">
+          {/* Card Pink */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="bg-[#ff4d8b] rounded-[24px] p-10 text-white flex flex-col justify-between min-h-[400px]"
+          >
+            <div>
+              <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mb-8">
+                <Gamepad2 className="h-6 w-6 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-4">{feature.title}</h3>
-              <p className="text-white/60 leading-relaxed text-lg">
-                {feature.description}
+              <h3 className="text-2xl font-medium tracking-tight mb-4">Gamificação Social</h3>
+              <p className="text-white/80 text-lg leading-relaxed">
+                Sistemas de desafios, rankings e reconhecimento para aumentar participação e engajamento.
               </p>
-            </motion.div>
-          ))}
-        </div>
+            </div>
+            <div className="flex items-center gap-2 font-semibold cursor-pointer group">
+              Saiba mais <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            </div>
+          </motion.div>
 
-        {/* Mockup Placeholder */}
-        <motion.div 
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mt-32 relative mx-auto max-w-5xl aspect-video bg-gradient-to-b from-white/10 to-transparent rounded-t-[40px] border-x border-t border-white/10 p-4"
-        >
-          <div className="w-full h-full bg-brand-black rounded-t-[32px] overflow-hidden flex items-center justify-center border border-white/5">
-             <div className="text-white/20 font-bold text-2xl uppercase tracking-widest">Mockup da Plataforma</div>
-          </div>
-        </motion.div>
+          {/* Card Teal */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="bg-[#1a3a3a] rounded-[24px] p-10 text-white flex flex-col justify-between min-h-[400px]"
+          >
+            <div>
+              <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center mb-8">
+                <Share2 className="h-6 w-6 text-[#a4d4c5]" />
+              </div>
+              <h3 className="text-2xl font-medium tracking-tight mb-4">Marketing & Embaixadores</h3>
+              <p className="text-white/80 text-lg leading-relaxed">
+                Frameworks para transformar professores em promotores naturais da marca da academia.
+              </p>
+            </div>
+            <div className="flex items-center gap-2 font-semibold cursor-pointer group">
+              Saiba mais <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            </div>
+          </motion.div>
+
+          {/* Card Lavender */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="bg-[#b8a4ed] rounded-[24px] p-10 text-[#0a0a0a] flex flex-col justify-between min-h-[400px]"
+          >
+            <div>
+              <div className="w-12 h-12 bg-black/5 rounded-xl flex items-center justify-center mb-8">
+                <GraduationCap className="h-6 w-6 text-[#0a0a0a]" />
+              </div>
+              <h3 className="text-2xl font-medium tracking-tight mb-4">Aprendizado Contínuo</h3>
+              <p className="text-[#0a0a0a]/70 text-lg leading-relaxed">
+                Treinamentos e conteúdos que desenvolvem habilidades técnicas e posicionamento.
+              </p>
+            </div>
+            <div className="flex items-center gap-2 font-semibold cursor-pointer group">
+              Saiba mais <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

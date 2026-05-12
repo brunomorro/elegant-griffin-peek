@@ -17,7 +17,7 @@ const formSchema = z.object({
   email: z.string().email("E-mail inválido"),
 });
 
-export const LeadForm = ({ dark = false }: { dark?: boolean }) => {
+export const LeadForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
@@ -39,25 +39,24 @@ export const LeadForm = ({ dark = false }: { dark?: boolean }) => {
 
     if (success) {
       setIsSuccess(true);
-      showSuccess("Diagnóstico solicitado com sucesso!");
+      showSuccess("Diagnóstico solicitado!");
       form.reset();
-      // Opcional: Redirecionar para WhatsApp após 2 segundos
-      // setTimeout(() => window.open('https://wa.me/SEUNUMERO', '_blank'), 2000);
     } else {
-      showError("Erro ao enviar. Tente novamente.");
+      showError("Erro ao enviar.");
     }
   }
 
   if (isSuccess) {
     return (
-      <div className="flex flex-col items-center justify-center p-8 text-center space-y-4 bg-white/5 rounded-3xl border border-[#F46A35]/20">
-        <CheckCircle2 className="h-16 w-16 text-[#F46A35]" />
-        <h3 className="text-2xl font-bold text-white">Solicitação Enviada!</h3>
-        <p className="text-white/60">Em breve nossa equipe entrará em contato para o seu diagnóstico gratuito.</p>
+      <div className="flex flex-col items-center justify-center p-10 text-center space-y-6 bg-white rounded-[24px]">
+        <div className="w-16 h-16 bg-[#a4d4c5] rounded-full flex items-center justify-center">
+          <CheckCircle2 className="h-8 w-8 text-[#1a3a3a]" />
+        </div>
+        <h3 className="text-2xl font-medium text-[#0a0a0a] tracking-tight">Solicitação Enviada!</h3>
+        <p className="text-[#6a6a6a]">Em breve nossa equipe entrará em contato.</p>
         <Button 
           onClick={() => setIsSuccess(false)} 
-          variant="outline" 
-          className="border-[#F46A35] text-[#F46A35] hover:bg-[#F46A35] hover:text-white rounded-full"
+          className="bg-[#0a0a0a] text-white rounded-[12px] w-full"
         >
           Enviar outro
         </Button>
@@ -66,7 +65,8 @@ export const LeadForm = ({ dark = false }: { dark?: boolean }) => {
   }
 
   return (
-    <div className={`p-8 rounded-3xl border ${dark ? 'bg-[#171717] border-white/10' : 'bg-white border-black/5 shadow-2xl'}`}>
+    <div className="p-8 bg-white rounded-[24px] shadow-sm border border-[#e5e5e5]">
+      <h3 className="text-xl font-medium text-[#0a0a0a] mb-6 tracking-tight">Solicite seu diagnóstico</h3>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <FormField
@@ -74,23 +74,21 @@ export const LeadForm = ({ dark = false }: { dark?: boolean }) => {
             name="nome"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className={dark ? "text-white/70" : "text-black/70"}>Nome Completo</FormLabel>
                 <FormControl>
-                  <Input placeholder="Seu nome" {...field} className={dark ? "bg-white/5 border-white/10 text-white" : ""} />
+                  <Input placeholder="Nome completo" {...field} className="h-11 rounded-[12px] border-[#e5e5e5] bg-[#fffaf0]" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4">
             <FormField
               control={form.control}
               name="academia"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className={dark ? "text-white/70" : "text-black/70"}>Nome da Academia</FormLabel>
                   <FormControl>
-                    <Input placeholder="Ex: Gym Fit" {...field} className={dark ? "bg-white/5 border-white/10 text-white" : ""} />
+                    <Input placeholder="Academia" {...field} className="h-11 rounded-[12px] border-[#e5e5e5] bg-[#fffaf0]" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -101,9 +99,8 @@ export const LeadForm = ({ dark = false }: { dark?: boolean }) => {
               name="numero_unidades"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className={dark ? "text-white/70" : "text-black/70"}>Nº de Unidades</FormLabel>
                   <FormControl>
-                    <Input placeholder="Ex: 3" type="number" {...field} className={dark ? "bg-white/5 border-white/10 text-white" : ""} />
+                    <Input placeholder="Unidades" type="number" {...field} className="h-11 rounded-[12px] border-[#e5e5e5] bg-[#fffaf0]" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -115,9 +112,8 @@ export const LeadForm = ({ dark = false }: { dark?: boolean }) => {
             name="whatsapp"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className={dark ? "text-white/70" : "text-black/70"}>WhatsApp</FormLabel>
                 <FormControl>
-                  <Input placeholder="(00) 00000-0000" {...field} className={dark ? "bg-white/5 border-white/10 text-white" : ""} />
+                  <Input placeholder="WhatsApp" {...field} className="h-11 rounded-[12px] border-[#e5e5e5] bg-[#fffaf0]" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -128,9 +124,8 @@ export const LeadForm = ({ dark = false }: { dark?: boolean }) => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className={dark ? "text-white/70" : "text-black/70"}>E-mail Corporativo</FormLabel>
                 <FormControl>
-                  <Input placeholder="seu@email.com" {...field} className={dark ? "bg-white/5 border-white/10 text-white" : ""} />
+                  <Input placeholder="E-mail corporativo" {...field} className="h-11 rounded-[12px] border-[#e5e5e5] bg-[#fffaf0]" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -139,10 +134,10 @@ export const LeadForm = ({ dark = false }: { dark?: boolean }) => {
           <Button 
             type="submit" 
             disabled={isSubmitting}
-            className="w-full bg-[#F46A35] hover:bg-[#d45a2a] text-white h-14 rounded-xl font-bold text-lg shadow-lg shadow-[#F46A35]/20 transition-all active:scale-95"
+            className="w-full bg-[#0a0a0a] hover:bg-[#1a1a1a] text-white h-12 rounded-[12px] font-semibold text-sm mt-2"
           >
-            {isSubmitting ? <Loader2 className="h-5 w-5 animate-spin mr-2" /> : null}
-            Quero meu diagnóstico gratuito
+            {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
+            Obter diagnóstico gratuito
           </Button>
         </form>
       </Form>

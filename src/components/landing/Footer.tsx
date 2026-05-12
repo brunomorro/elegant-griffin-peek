@@ -6,50 +6,49 @@ import logo from "@/assets/logo.png";
 
 export const Footer = () => {
   return (
-    <footer className="bg-brand-black pt-20 pb-10 border-t border-white/5">
+    <footer className="bg-[#faf5e8] pt-24 pb-12 border-t border-[#e5e5e5]">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid md:grid-cols-4 gap-12 mb-20">
+        <div className="grid md:grid-cols-4 gap-16 mb-24">
           <div className="col-span-2">
-            <div className="flex items-center gap-3 mb-6">
+            <div className="flex items-center gap-2 mb-8">
               <img src={logo} alt="GymOnHands Logo" className="h-8 w-auto" />
-              <span className="text-xl font-bold text-white">GymOnHands</span>
+              <span className="text-xl font-bold text-[#0a0a0a]">GymOnHands</span>
             </div>
-            <p className="text-white/40 max-w-sm leading-relaxed">
-              Transformando educadores físicos em embaixadores de marca através de tecnologia, gamificação e desenvolvimento humano.
+            <p className="text-[#6a6a6a] max-w-sm text-lg leading-relaxed">
+              Transformando educadores físicos em embaixadores de marca através de tecnologia e gamificação.
             </p>
           </div>
           
           <div>
-            <h4 className="text-white font-bold mb-6">Contato</h4>
-            <ul className="space-y-4">
-              <li className="flex items-center gap-3 text-white/60 hover:text-brand-orange transition-colors cursor-pointer">
-                <Mail className="h-4 w-4" /> contato@gymonhands.com
-              </li>
-              <li className="flex items-center gap-3 text-white/60 hover:text-brand-orange transition-colors cursor-pointer">
-                <Phone className="h-4 w-4" /> (11) 99999-9999
-              </li>
-              <li className="flex items-center gap-3 text-white/60 hover:text-brand-orange transition-colors cursor-pointer">
-                <Instagram className="h-4 w-4" /> @gymonhands
-              </li>
+            <h4 className="text-[#0a0a0a] font-bold mb-6 text-sm uppercase tracking-wider">Produto</h4>
+            <ul className="space-y-4 text-sm font-medium text-[#3a3a3a]">
+              <li className="hover:text-[#0a0a0a] cursor-pointer">Funcionalidades</li>
+              <li className="hover:text-[#0a0a0a] cursor-pointer">Soluções</li>
+              <li className="hover:text-[#0a0a0a] cursor-pointer">Preços</li>
+              <li className="hover:text-[#0a0a0a] cursor-pointer">Clientes</li>
             </ul>
           </div>
 
           <div>
-            <h4 className="text-white font-bold mb-6">Legal</h4>
-            <ul className="space-y-4">
-              <li className="text-white/60 hover:text-brand-orange transition-colors cursor-pointer">Termos de Uso</li>
-              <li className="text-white/60 hover:text-brand-orange transition-colors cursor-pointer">Privacidade</li>
+            <h4 className="text-[#0a0a0a] font-bold mb-6 text-sm uppercase tracking-wider">Empresa</h4>
+            <ul className="space-y-4 text-sm font-medium text-[#3a3a3a]">
+              <li className="hover:text-[#0a0a0a] cursor-pointer">Sobre nós</li>
+              <li className="hover:text-[#0a0a0a] cursor-pointer">Carreiras</li>
+              <li className="hover:text-[#0a0a0a] cursor-pointer">Contato</li>
+              <li className="hover:text-[#0a0a0a] cursor-pointer">Blog</li>
             </ul>
           </div>
         </div>
         
-        <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="text-white/20 text-sm">
-            © {new Date().getFullYear()} GymOnHands. Todos os direitos reservados.
-          </p>
-          <div className="flex items-center gap-2 opacity-30 hover:opacity-100 transition-opacity">
-            <span className="text-xs text-white">Made with</span>
-            <a href="https://www.dyad.sh/" target="_blank" className="text-xs font-bold text-white underline">Dyad</a>
+        <div className="pt-12 border-t border-[#e5e5e5] flex flex-col md:flex-row justify-between items-center gap-8">
+          <div className="flex gap-8 text-sm font-medium text-[#6a6a6a]">
+            <span>© {new Date().getFullYear()} GymOnHands</span>
+            <span className="hover:text-[#0a0a0a] cursor-pointer">Privacidade</span>
+            <span className="hover:text-[#0a0a0a] cursor-pointer">Termos</span>
+          </div>
+          <div className="flex items-center gap-6">
+            <Instagram className="h-5 w-5 text-[#3a3a3a] hover:text-[#0a0a0a] cursor-pointer" />
+            <Mail className="h-5 w-5 text-[#3a3a3a] hover:text-[#0a0a0a] cursor-pointer" />
           </div>
         </div>
       </div>
